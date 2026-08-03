@@ -1,0 +1,59 @@
+const Tour = require('../models/Tour');
+
+// @desc Get All Tours
+exports.getTours = async (req, res) => {
+  try {
+    const tours = await Tour.find().sort({ createdAt: -1 });
+    res.status(200).json(tours);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc Get Single Tour by Slug
+exports.getTourBySlug = async (req, res) => {
+  try {
+    const tour = await Tour.findOne({ slug: req.params.slug });
+    if (!tour) return res.status(404).json({ message: 'Tour not found' });
+    res.status(200).json(tour);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc Create New Tour Package
+exports.createTour = async (req, res) => {
+  try {
+    const { title, location, duration, price, category, rating, image, description, inclusions } = req.body;
+    
+    // Simple Slug generation from title
+    const slug = title.toLowerCase().replace(/[^a-zA-Z0-0 ]/g, "").replace(/\s+/g, "-");
+
+    const newTour = await Tour.create({
+      title,
+      slug,
+      location,
+      duration,
+      price,
+      category,
+      rating: rating || 4.5,
+      image,
+      description,
+      inclusions
+    });
+
+    res.status(201).json({ success: true, data: newTour });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc Delete Tour
+exports.deleteTour = async (req, res) => {
+  try {
+    await Tour.findByIdAndDelete(req.params.id);
+    res.status(200).json({ success: true, message: 'Tour package deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
