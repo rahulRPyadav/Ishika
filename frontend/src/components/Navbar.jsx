@@ -26,18 +26,18 @@ const Navbar = () => {
         {/* Contact Info */}
         <div className="flex items-center gap-4 sm:gap-6">
           <a
-            href="tel:+917357121156"
+            href="tel:+917891604638"
             className="flex items-center gap-1.5 hover:text-[#FFF3C8] transition font-medium"
           >
             <Phone size={13} className="text-[#34A99D]" />
-            <span>+91 7357121156</span>
+            <span>+91 7891604638</span>
           </a>
           <a
-            href="mailto:ranand.tech@gmail.com"
+            href="mailto:rahulk37255@gmail.com"
             className="hidden sm:flex items-center gap-1.5 hover:text-[#FFF3C8] transition font-medium"
           >
             <Mail size={13} className="text-[#34A99D]" />
-            <span>ranand.tech@gmail.com</span>
+            <span>rahulk37255@gmail.com</span>
           </a>
         </div>
 
