@@ -6,6 +6,8 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 
+const API_BASE_URL = 'https://ishika-backend.onrender.com';
+
 const TourDetail = () => {
   // Extracting parameter from URL (handles both ID and Slug)
   const { slug, id } = useParams();
@@ -36,7 +38,7 @@ const TourDetail = () => {
     setLoadingTour(true);
     setError(false);
 
-    axios.get(`http://localhost:5000/api/tours/${tourIdentifier}`)
+    axios.get(`${API_BASE_URL}/api/tours/${tourIdentifier}`)
       .then((res) => {
         if (res.data) {
           setTour(res.data);
@@ -69,7 +71,7 @@ const TourDetail = () => {
     setBookingLoading(true);
 
     try {
-      await axios.post('http://localhost:5000/api/bookings', {
+      await axios.post(`${API_BASE_URL}/api/bookings`, {
         tourId: tour?._id,
         tourName: tour?.title,
         price: tour?.price,
