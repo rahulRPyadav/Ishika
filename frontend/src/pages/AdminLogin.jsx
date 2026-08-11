@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Lock, Mail } from 'lucide-react';
 
+const API_BASE_URL = 'https://ishika-backend.onrender.com';
+
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +16,7 @@ const AdminLogin = () => {
     setError('');
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', {
+      const res = await axios.post(`${API_BASE_URL}/api/auth/login`, {
         email,
         password
       });
