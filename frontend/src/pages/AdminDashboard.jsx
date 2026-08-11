@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { LayoutDashboard, Compass, CalendarCheck, PlusCircle, Trash2, X, CheckCircle, Users } from 'lucide-react';
 
+const API_BASE_URL = 'https://ishika-backend.onrender.com';
+
 const AdminDashboard = () => {
   const [tours, setTours] = useState([]);
   const [bookings, setBookings] = useState([]);
@@ -22,8 +24,8 @@ const AdminDashboard = () => {
 
   const fetchData = async () => {
     try {
-      const tourRes = await axios.get('http://localhost:5000/api/tours');
-      const bookingRes = await axios.get('http://localhost:5000/api/bookings');
+      const tourRes = await axios.get(`${API_BASE_URL}/api/tours`);
+      const bookingRes = await axios.get(`${API_BASE_URL}/api/bookings`);
       setTours(tourRes.data);
       setBookings(bookingRes.data);
     } catch (err) {
@@ -38,7 +40,7 @@ const AdminDashboard = () => {
   // Update Booking Status
   const handleStatusChange = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/bookings/${id}/status`, { status });
+      await axios.put(`${API_BASE_URL}/api/bookings/${id}/status`, { status });
       fetchData();
     } catch (err) {
       console.error(err);
@@ -49,7 +51,7 @@ const AdminDashboard = () => {
   const handleDeleteTour = async (id) => {
     if (window.confirm("Kya aap sach me ye tour package delete karna chahte hain?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/tours/${id}`);
+        await axios.delete(`${API_BASE_URL}/api/tours/${id}`);
         fetchData();
       } catch (err) {
         console.error("Delete Error:", err);
@@ -66,7 +68,7 @@ const AdminDashboard = () => {
         price: Number(formData.price),
         inclusions: formData.inclusions.split(',').map(item => item.trim())
       };
-      await axios.post('http://localhost:5000/api/tours', payload);
+      await axios.post(`${API_BASE_URL}/api/tours`, payload);
       alert('✅ New Tour Package Added Successfully!');
       setShowAddModal(false);
       setFormData({ title: '', location: '', duration: '', price: '', category: 'Hills', image: '', description: '', inclusions: '' });
