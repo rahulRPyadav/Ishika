@@ -14,6 +14,8 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 
+const API_BASE_URL = 'https://ishika-backend.onrender.com';
+
 const TourList = () => {
   const [tours, setTours] = useState([]);
   const [wishlist, setWishlist] = useState([]);
@@ -89,7 +91,7 @@ const TourList = () => {
   };
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/tours')
+    axios.get(`${API_BASE_URL}/api/tours`)
       .then(res => {
         if (res.data && res.data.length > 0) setTours(res.data);
         else setTours(dummyTours);
@@ -183,7 +185,7 @@ const TourList = () => {
                     onClick={() => toggleWishlist(tour._id)}
                     className="absolute top-3 right-3 sm:top-3.5 sm:right-3.5 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-950/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-red-500 active:scale-90 transition-all"
                   >
-                    <Heart size={15} className="sm:w-4 sm:h-4" fill={isLiked ? "currentColor" : "none"} className={isLiked ? "text-red-500" : ""} />
+                    <Heart size={15} className={`sm:w-4 sm:h-4 ${isLiked ? "text-red-500" : ""}`} fill={isLiked ? "currentColor" : "none"} />
                   </button>
                 </div>
 
